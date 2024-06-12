@@ -49,71 +49,71 @@ android {
         }
         create("spinswintv") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://spinswin.tv/\"")
+            buildConfigField("String", "DOMAIN", "\"https://spinswin.tv/?invite=spinswintv\"")
         }
         create("spinsjilitv") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://spinsjili.tv/\"")
+            buildConfigField("String", "DOMAIN", "\"https://spinsjili.tv/?invite=spinsjilitv\"")
         }
         create("jilispinstv") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://jilispins.tv/\"")
+            buildConfigField("String", "DOMAIN", "\"https://jilispins.tv/?invite=jilispinstv\"")
         }
         create("spinsslotwin") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://spinsslot.win/\"")
+            buildConfigField("String", "DOMAIN", "\"https://spinsslot.win/?invite=spinsslotwin\"")
         }
         create("spinssabwin") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://spinssab.win/\"")
+            buildConfigField("String", "DOMAIN", "\"https://spinssab.win/?invite=spinssabwin\"")
         }
         create("spinsjiliwin") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://spinsjili.win/\"")
+            buildConfigField("String", "DOMAIN", "\"https://spinsjili.win/?invite=\"")
         }
         create("slotprobuzz") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://slotpro.buzz/\"")
+            buildConfigField("String", "DOMAIN", "\"https://slotpro.buzz/?invite=spinsjiliwin\"")
         }
         create("phbeteu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://phbet.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://phbet.eu/?invite=phbeteu\"")
         }
         create("phwineu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://phwin.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://phwin.eu/?invite=phwineu\"")
         }
         create("phbet99eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://phbet99.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://phbet99.eu/?invite=phbet99eu\"")
         }
         create("phbet88eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://phbet88.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://phbet88.eu/?invite=phbet88eu\"")
         }
         create("sp77eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://sp77.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://sp77.eu/?invite=sp77eu\"")
         }
         create("sp128eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://sp128.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://sp128.eu/?invite=sp128eu\"")
         }
         create("sp777eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://sp777.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://sp777.eu/?invite=sp777eu\"")
         }
         create("sp888eu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://sp888.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://sp888.eu/?invite=sp888eu\"")
         }
         create("88pheu") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://88ph.eu/\"")
+            buildConfigField("String", "DOMAIN", "\"https://88ph.eu/?invite=88pheu\"")
         }
         create("tuuimgg") {
             dimension = "version"
-            buildConfigField("String", "DOMAIN", "\"https://tuuimgg.com/\"")
+            buildConfigField("String", "DOMAIN", "\"https://tuuimgg.com/?invite=tuuimgg\"")
         }
     }
     flavorDimensions("version")

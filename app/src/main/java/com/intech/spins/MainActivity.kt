@@ -23,7 +23,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.google.android.gms.tasks.Task
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
 import java.io.InputStream
 
@@ -97,17 +100,27 @@ class MainActivity : AppCompatActivity() {
     }
     private fun firebasePush() {
         askNotificationPermission()
-        FirebaseMessaging.getInstance().getToken()
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful()) {
-                    Log.w("张飞", "Fetching FCM registration token failed", task.getException())
-                    return@addOnCompleteListener
-                }
-                // Get new FCM registration token
-                val token: String = task.getResult()
+//        FirebaseMessaging.getInstance().getToken()
+//            .addOnCompleteListener { task ->
+//                if (!task.isSuccessful()) {
+//                    Log.w("张飞", "Fetching FCM registration token failed", task.getException())
+//                    return@addOnCompleteListener
+//                }
+//                // Get new FCM registration token
+//                val token: String = task.getResult()
+//
+//                // Log and toast
+//                Log.d("张飞", "FCM Token: $token")
+//            }
 
-                // Log and toast
-                Log.d("张飞", "FCM Token: $token")
+        Firebase.messaging.subscribeToTopic("weather")
+            .addOnCompleteListener { task ->
+                var msg = "Subscribed"
+                if (!task.isSuccessful) {
+                    msg = "Subscribe failed"
+                }
+                Log.d("张欣", msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -193,7 +206,6 @@ class MainActivity : AppCompatActivity() {
                     return WebResourceResponse("image/webp", "UTF-8", inputStream)
                 }
 
-                Log.i("马超1", "替换失败的url:${request?.url.toString()}")
 
                 return super.shouldInterceptRequest(view, request)
             }
