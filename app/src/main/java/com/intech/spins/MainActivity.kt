@@ -2,8 +2,8 @@ package com.intech.spins
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Build.VERSION_CODES.S
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,12 +16,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import com.gyf.immersionbar.ImmersionBar
 import java.io.InputStream
 
@@ -50,7 +52,8 @@ class MainActivity : AppCompatActivity() {
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         initLayoutParams()
         initWebView()
-
+        //集成firebase推送
+        firebasePush()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (customView != null) {
@@ -65,6 +68,47 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    // Declare the launcher at the top of your Activity/Fragment:
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+
+        } else {
+
+        }
+    }
+
+    private fun askNotificationPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+
+            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                       Toast.makeText(this,"You have disabled the POST_NOTIFICATIONS permission, so you will not receive notifications from the app. If needed, you can enable it manually.",Toast.LENGTH_LONG).show()
+            } else {
+
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+    private fun firebasePush() {
+        askNotificationPermission()
+        FirebaseMessaging.getInstance().getToken()
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful()) {
+                    Log.w("张飞", "Fetching FCM registration token failed", task.getException())
+                    return@addOnCompleteListener
+                }
+                // Get new FCM registration token
+                val token: String = task.getResult()
+
+                // Log and toast
+                Log.d("张飞", "FCM Token: $token")
+            }
     }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1025021475960",
+    "project_id": "spins-eb2f2",
+    "storage_bucket": "spins-eb2f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025021475960:android:322717962e1484b810c18d",
+        "android_client_info": {
+          "package_name": "com.intech.spins.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4jMDJLK66Btu-d_ihLGN8V62uBtb2C7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025021475960:android:aa1b31e968ae8a4f10c18d",
+        "android_client_info": {
+          "package_name": "com.intech.spins.release"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4jMDJLK66Btu-d_ihLGN8V62uBtb2C7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

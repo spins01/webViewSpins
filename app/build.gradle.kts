@@ -4,6 +4,7 @@ import java.util.Date
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -159,5 +160,7 @@ dependencies {
     implementation("com.geyifeng.immersionbar:immersionbar:3.2.2")
 // kotlin扩展（可选）
     implementation("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
-
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-messaging:23.0.0")
 }
