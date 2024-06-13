@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "947099977543",
+    "project_id": "spins-16fdd",
+    "storage_bucket": "spins-16fdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947099977543:android:cff345160d399c0db5ae62",
+        "android_client_info": {
+          "package_name": "com.intech.spins"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuu3nK8vOPwO2fGchb-l6mx7HY_CRZhn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947099977543:android:930f5cc0807a0736b5ae62",
+        "android_client_info": {
+          "package_name": "com.intech.spins.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuu3nK8vOPwO2fGchb-l6mx7HY_CRZhn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947099977543:android:f054737a616849b9b5ae62",
+        "android_client_info": {
+          "package_name": "com.intech.spins.release"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuu3nK8vOPwO2fGchb-l6mx7HY_CRZhn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

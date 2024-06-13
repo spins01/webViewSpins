@@ -23,9 +23,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.google.android.gms.tasks.Task
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
 import java.io.InputStream
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 //    private var url = "https://spins777.vip"
     private var url = BuildConfig.DOMAIN
 //    private var url = "https://spinsph.com/"
+private var mFirebaseAnalytics: FirebaseAnalytics? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
     private fun firebasePush() {
         askNotificationPermission()
+        //初始化Firebase Analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        //自定义事件,上传域名
+        val bundleEvent = Bundle()
+        bundleEvent.putString(FirebaseAnalytics.Param.METHOD, BuildConfig.DOMAIN)
+        mFirebaseAnalytics?.logEvent("openUrl",bundleEvent)
 //        FirebaseMessaging.getInstance().getToken()
 //            .addOnCompleteListener { task ->
 //                if (!task.isSuccessful()) {

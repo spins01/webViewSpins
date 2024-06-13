@@ -115,6 +115,10 @@ android {
             dimension = "version"
             buildConfigField("String", "DOMAIN", "\"https://tuuimgg.com/?invite=tuuimgg\"")
         }
+        create("spinsany") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://spinsany.net/?invite=spinsany\"")
+        }
     }
     flavorDimensions("version")
     compileOptions {
@@ -163,4 +167,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-messaging:23.0.0")
+    implementation ("com.google.firebase:firebase-analytics")
+
 }
