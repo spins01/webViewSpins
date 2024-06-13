@@ -119,8 +119,7 @@ class MainActivity : AppCompatActivity() {
                 if (!task.isSuccessful) {
                     msg = "Subscribe failed"
                 }
-                Log.d("张欣", msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                Log.d("张飞", msg)
             }
     }
 
