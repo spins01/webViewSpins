@@ -147,6 +147,7 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
             allowContentAccess = true
 
         }
+        webView.addJavascriptInterface(WebAppInterface(this),"appClient")
         webView.webChromeClient = object : WebChromeClient() {
             override fun onShowCustomView(view: View?, callback: CustomViewCallback) {
                 if (customView != null) {
@@ -222,23 +223,23 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
                 ivStartUp.visibility = View.GONE
             }
 
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
-            ): Boolean {
-                val urlInner = request?.url.toString()
-                if (urlInner.startsWith("gcash://")) {
-                    try {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlInner))
-                        startActivity(intent)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        // 提示用户没有安装目标应用
-                    }
-                    return true
-                }
-                return super.shouldOverrideUrlLoading(view, request)
-            }
+//            override fun shouldOverrideUrlLoading(
+//                view: WebView?,
+//                request: WebResourceRequest?
+//            ): Boolean {
+//                val urlInner = request?.url.toString()
+//                if (urlInner.startsWith("gcash://")) {
+//                    try {
+//                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlInner))
+//                        startActivity(intent)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                        // 提示用户没有安装目标应用
+//                    }
+//                    return true
+//                }
+//                return super.shouldOverrideUrlLoading(view, request)
+//            }
         }
         webView.loadUrl(url)
     }
