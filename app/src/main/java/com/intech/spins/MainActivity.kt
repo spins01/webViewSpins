@@ -1,8 +1,10 @@
 package com.intech.spins
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -218,6 +220,24 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 ivStartUp.visibility = View.GONE
+            }
+
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                val urlInner = request?.url.toString()
+                if (urlInner.startsWith("gcash://")) {
+                    try {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlInner))
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        // 提示用户没有安装目标应用
+                    }
+                    return true
+                }
+                return super.shouldOverrideUrlLoading(view, request)
             }
         }
         webView.loadUrl(url)
