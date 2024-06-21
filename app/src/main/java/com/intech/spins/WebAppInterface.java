@@ -28,7 +28,7 @@ public class WebAppInterface {
             String service = jsonObject.getString("service");
             String method = jsonObject.getString("method");
             String data = jsonObject.getString("data");
-            Log.i("关羽","requestID:"+requestId+"  service:"+service+"   method:"+method+"    data:"+data);
+            Log.i("关羽",jsonObject.toString());
             JSONObject urlJsonObject = new JSONObject(data);
             String innerUrl = urlJsonObject.getString("url");
             Intent innerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(innerUrl));

@@ -1,6 +1,7 @@
 package com.intech.spins
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -38,10 +39,12 @@ class MainActivity : AppCompatActivity() {
     private var customView: View? = null
     private var customViewCallback: WebChromeClient.CustomViewCallback? = null
     private lateinit var fullScreenContainer: FrameLayout
-//    private var url = "https://spins777.vip"
-    private var url = BuildConfig.DOMAIN
-//    private var url = "https://spinsph.com/"
-private var mFirebaseAnalytics: FirebaseAnalytics? = null
+
+    //    private var url = "https://spins777.vip"
+    private var spinsUrl = BuildConfig.DOMAIN
+
+    //    private var url = "https://spinsph.com/"
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,7 +60,7 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         initLayoutParams()
         initWebView()
-        //集成firebase推送
+        //集成firebase推送，
         firebasePush()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -74,6 +77,7 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
             }
         })
     }
+
     // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -88,26 +92,39 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private fun askNotificationPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
 
             } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-                       Toast.makeText(this,"You have disabled the POST_NOTIFICATIONS permission, so you will not receive notifications from the app. If needed, you can enable it manually.",Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "You have disabled the POST_NOTIFICATIONS permission, so you will not receive notifications from the app. If needed, you can enable it manually.",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
 
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
             }
         }
     }
+
     private fun firebasePush() {
         askNotificationPermission()
+        val sharedPreferences = getSharedPreferences("Spins", Context.MODE_PRIVATE)
+        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
         //初始化Firebase Analytics
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         //自定义事件,上传域名
-        val bundleEvent = Bundle()
-        bundleEvent.putString(FirebaseAnalytics.Param.METHOD, BuildConfig.DOMAIN)
-        mFirebaseAnalytics?.logEvent("openUrl",bundleEvent)
+        if (isFirstLaunch) {
+            val bundleEvent = Bundle()
+            bundleEvent.putString(FirebaseAnalytics.Param.METHOD, BuildConfig.DOMAIN)
+            mFirebaseAnalytics?.logEvent("openUrl", bundleEvent)
+            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
+        }
 //        FirebaseMessaging.getInstance().getToken()
 //            .addOnCompleteListener { task ->
 //                if (!task.isSuccessful()) {
@@ -146,8 +163,14 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
             setGeolocationEnabled(true)
             allowContentAccess = true
 
+
+            loadWithOverviewMode = true
+            useWideViewPort = true
+            setSupportZoom(true)
+            builtInZoomControls = true
+            displayZoomControls = false
         }
-        webView.addJavascriptInterface(WebAppInterface(this),"appClient")
+        webView.addJavascriptInterface(WebAppInterface(this), "appClient")
         webView.webChromeClient = object : WebChromeClient() {
             override fun onShowCustomView(view: View?, callback: CustomViewCallback) {
                 if (customView != null) {
@@ -241,12 +264,12 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
 //                return super.shouldOverrideUrlLoading(view, request)
 //            }
         }
-        webView.loadUrl(url)
+        webView.loadUrl(spinsUrl)
     }
 
     @SuppressLint("ResourceType")
     private fun replaceUrl(picUrl: String): WebResourceResponse? {
-        if (url.endsWith("static/img/animate-6.f4ad1774.webp")) {
+        if (spinsUrl.endsWith("static/img/animate-6.f4ad1774.webp")) {
             Log.i("马超1", "替换成功的url:${picUrl}")
             val inputStream = resources.openRawResource(R.mipmap.ic_launcher);
             return WebResourceResponse("image/webp", "UTF-8", inputStream)
@@ -289,6 +312,7 @@ private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private fun initLayoutParams() {
         val webViewLayoutParams = webView.layoutParams as ConstraintLayout.LayoutParams
         webViewLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
+        webViewLayoutParams.bottomMargin = ImmersionBar.getNavigationBarHeight(this@MainActivity)
         val ivLayoutParams = ivStartUp.layoutParams as ConstraintLayout.LayoutParams
         ivLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
     }

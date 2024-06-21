@@ -119,6 +119,30 @@ android {
             dimension = "version"
             buildConfigField("String", "DOMAIN", "\"http://spinsany.net/?invite=spinsany\"")
         }
+        create("spinswho") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://spinswho.com/?invite=spinswho\"")
+        }
+        create("spins123space") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spins123.space/?invite=spins123space\"")
+        }
+        create("spins999space") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://spins999.space/?invite=spins999space\"")
+        }
+        create("spinsps5vip") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://spinsps5.vip/?invite=spinsps5vip\"")
+        }
+        create("slots777io") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://slots777.io/?invite=slots777io\"")
+        }
+        create("spins777vip") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"http://spins777.vip?invite=spins777vip\"")
+        }
     }
     flavorDimensions("version")
     compileOptions {
