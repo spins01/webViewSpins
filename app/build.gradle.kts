@@ -143,6 +143,10 @@ android {
             dimension = "version"
             buildConfigField("String", "DOMAIN", "\"http://spins777.vip?invite=spins777vip\"")
         }
+        create("spinsphcom") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsph.com/?invite=spinsphcom\"")
+        }
     }
     flavorDimensions("version")
     compileOptions {

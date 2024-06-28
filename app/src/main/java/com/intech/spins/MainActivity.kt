@@ -311,8 +311,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initLayoutParams() {
         val webViewLayoutParams = webView.layoutParams as ConstraintLayout.LayoutParams
-        webViewLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
         webViewLayoutParams.bottomMargin = ImmersionBar.getNavigationBarHeight(this@MainActivity)
+        webViewLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
         val ivLayoutParams = ivStartUp.layoutParams as ConstraintLayout.LayoutParams
         ivLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
     }
