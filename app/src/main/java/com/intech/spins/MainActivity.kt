@@ -32,11 +32,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
-import com.gyf.immersionbar.ImmersionBar.destroy
 import java.io.InputStream
 
 
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         DensityUtils.setDensity(application, this@MainActivity)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
+        checkAndRequestPermissions()
         webView = findViewById<WebView>(R.id.webView)
         ivStartUp = findViewById<RelativeLayout>(R.id.ivStartUp)
         fullScreen = findViewById<FrameLayout>(R.id.fullScreen)
@@ -88,8 +89,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-        checkAndRequestPermissions()
     }
 
     // Declare the launcher at the top of your Activity/Fragment:
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun firebasePush() {
-        askNotificationPermission()
+//        askNotificationPermission()
         val sharedPreferences = getSharedPreferences("Spins", Context.MODE_PRIVATE)
         val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
         //初始化Firebase Analytics
@@ -308,15 +307,6 @@ class MainActivity : AppCompatActivity() {
         webView.loadUrl(spinsUrl)
     }
 
-    @SuppressLint("ResourceType")
-    private fun replaceUrl(picUrl: String): WebResourceResponse? {
-        if (spinsUrl.endsWith("static/img/animate-6.f4ad1774.webp")) {
-            Log.i("马超1", "替换成功的url:${picUrl}")
-            val inputStream = resources.openRawResource(R.mipmap.ic_launcher);
-            return WebResourceResponse("image/webp", "UTF-8", inputStream)
-        }
-        return null
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -380,8 +370,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAndRequestPermissions() {
         val permissions = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.POST_NOTIFICATIONS,
             Manifest.permission.READ_MEDIA_IMAGES,
             Manifest.permission.READ_MEDIA_AUDIO,
             Manifest.permission.READ_MEDIA_VIDEO,
@@ -392,22 +383,65 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (permissionsToRequest.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(
+                this,
+                permissionsToRequest.toTypedArray(),
+                PERMISSION_REQUEST_CODE
+            )
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            val deniedPermissions = permissions.filterIndexed { index, _ -> grantResults[index] != PackageManager.PERMISSION_GRANTED }
 
-            if (deniedPermissions.isEmpty()) {
-                // All permissions granted, do nothing
-            } else {
-                // Some permissions denied
-                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show()
+            for (i in grantResults.indices) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    // 获取被拒绝的权限
+                    val deniedPermission = permissions[i]
+                    // 处理被拒绝的权限，例如禁用相关功能或者展示进一步提示
+                    handleDeniedPermission(deniedPermission)
+                }
             }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
+
+    private fun handleDeniedPermission(deniedPermission: String) {
+        when (deniedPermission) {
+            Manifest.permission.POST_NOTIFICATIONS -> Snackbar.make(
+                findViewById(android.R.id.content),
+                "You have disabled the POST_NOTIFICATIONS permission, so you will not receive notifications from the app. If needed, you can enable it manually.",
+                Toast.LENGTH_LONG
+            ).show()
+
+            Manifest.permission.READ_MEDIA_IMAGES -> Snackbar.make(
+                findViewById(android.R.id.content),
+                "You have disabled the READ_MEDIA_IMAGES permission,You won't be able to access the photos on your phone.",
+                Toast.LENGTH_LONG
+            ).show()
+
+            Manifest.permission.READ_MEDIA_VIDEO -> Snackbar.make(
+                findViewById(android.R.id.content),
+                "You have disabled the READ_MEDIA_VIDEO permission,You won't be able to access the videos on your phone.",
+                Toast.LENGTH_LONG
+            ).show()
+
+            Manifest.permission.READ_MEDIA_AUDIO -> Snackbar.make(
+                findViewById(android.R.id.content),
+                "You have disabled the READ_MEDIA_AUDIO permission,You won't be able to access the audios on your phone.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+//    Manifest.permission.POST_NOTIFICATIONS,
+//    Manifest.permission.READ_MEDIA_IMAGES,
+//    Manifest.permission.READ_MEDIA_AUDIO,
+//    Manifest.permission.READ_MEDIA_VIDEO,
+//    private fun handleToast(result: Int) {
+
+//    }
 }
