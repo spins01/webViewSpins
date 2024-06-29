@@ -1,6 +1,10 @@
 package com.intech.spins
 
+import android.Manifest
+import android.R.attr
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -11,6 +15,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -25,12 +30,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar.destroy
 import java.io.InputStream
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
@@ -45,6 +53,10 @@ class MainActivity : AppCompatActivity() {
 
     //    private var url = "https://spinsph.com/"
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
+
+    private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
+    private val FILE_CHOOSER_RESULT_CODE = 1
+    private val PERMISSION_REQUEST_CODE = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -76,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        checkAndRequestPermissions()
     }
 
     // Declare the launcher at the top of your Activity/Fragment:
@@ -161,7 +175,6 @@ class MainActivity : AppCompatActivity() {
                 mediaPlaybackRequiresUserGesture = false
             }
             setGeolocationEnabled(true)
-            allowContentAccess = true
 
 
             loadWithOverviewMode = true
@@ -169,6 +182,11 @@ class MainActivity : AppCompatActivity() {
             setSupportZoom(true)
             builtInZoomControls = true
             displayZoomControls = false
+            allowFileAccess = true
+            allowContentAccess = true
+            allowFileAccessFromFileURLs = true
+            allowUniversalAccessFromFileURLs = true
+
         }
         webView.addJavascriptInterface(WebAppInterface(this), "appClient")
         webView.webChromeClient = object : WebChromeClient() {
@@ -195,6 +213,29 @@ class MainActivity : AppCompatActivity() {
                 fullScreen.visibility = View.GONE
                 exitFullScreenMode()
             }
+
+            override fun onShowFileChooser(
+                webView: WebView?,
+                filePathCallback: ValueCallback<Array<Uri>>?,
+                fileChooserParams: FileChooserParams?
+            ): Boolean {
+                if (mFilePathCallback != null) {
+                    mFilePathCallback!!.onReceiveValue(null)
+                }
+                mFilePathCallback = filePathCallback
+
+                val intent = fileChooserParams?.createIntent() as Intent
+                try {
+                    startActivityForResult(intent, FILE_CHOOSER_RESULT_CODE)
+                } catch (e: ActivityNotFoundException) {
+                    mFilePathCallback = null
+                    Toast.makeText(this@MainActivity, "Cannot open file chooser", Toast.LENGTH_LONG)
+                        .show()
+                    return false
+                }
+                return true
+            }
+
         }
         webView.webViewClient = object : WebViewClient() {
             @SuppressLint("ResourceType")
@@ -315,5 +356,58 @@ class MainActivity : AppCompatActivity() {
         webViewLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
         val ivLayoutParams = ivStartUp.layoutParams as ConstraintLayout.LayoutParams
         ivLayoutParams.topMargin = ImmersionBar.getStatusBarHeight(this@MainActivity)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == FILE_CHOOSER_RESULT_CODE) {
+            if (mFilePathCallback != null) {
+                var results: Array<Uri>? = null
+                if (resultCode == Activity.RESULT_OK) {
+                    if (data != null) {
+                        val result: Uri? = data.data
+                        if (result != null) {
+                            results = arrayOf(result)
+                        }
+                    }
+                }
+                mFilePathCallback?.onReceiveValue(results)
+                mFilePathCallback = null
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun checkAndRequestPermissions() {
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_AUDIO,
+            Manifest.permission.READ_MEDIA_VIDEO,
+        )
+
+        val permissionsToRequest = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (permissionsToRequest.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            val deniedPermissions = permissions.filterIndexed { index, _ -> grantResults[index] != PackageManager.PERMISSION_GRANTED }
+
+            if (deniedPermissions.isEmpty()) {
+                // All permissions granted, do nothing
+            } else {
+                // Some permissions denied
+                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
     }
 }
