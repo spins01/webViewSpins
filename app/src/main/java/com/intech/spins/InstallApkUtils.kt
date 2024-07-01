@@ -1,6 +1,8 @@
 package com.intech.spins
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.net.http.HttpResponseCache
@@ -8,6 +10,9 @@ import android.net.http.HttpResponseCache.install
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
+import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import java.io.File
@@ -77,4 +82,19 @@ object InstallApkUtils {
             installBelow(activity, apkPath)
         }
     }
+//    @SuppressLint("MissingInflatedId")
+//    fun showProgressDialog(context: Context): AlertDialog {
+//        val builder = AlertDialog.Builder(context)
+//        val inflater = LayoutInflater.from(context)
+//        val view = inflater.inflate(R.layout.dialog_progress, null)
+//        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+//
+//        builder.setView(view)
+//        builder.setCancelable(false) // 禁止点击外部或返回键取消弹窗
+//
+//        val dialog = builder.create()
+//        dialog.show()
+//
+//        return dialog
+//    }
 }

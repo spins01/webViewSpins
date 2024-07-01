@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.webkit.ValueCallback
@@ -22,10 +23,12 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -40,6 +43,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import rxhttp.toDownloadFlow
 import rxhttp.wrapper.param.RxHttp
@@ -65,6 +70,9 @@ class MainActivity : AppCompatActivity() {
     private val FILE_CHOOSER_RESULT_CODE = 1
     private val PERMISSION_REQUEST_CODE = 100
     private var mApkPath: String = ""
+    private lateinit var progressDialog: AlertDialog
+    private lateinit var progressBar: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -107,7 +115,14 @@ class MainActivity : AppCompatActivity() {
         RxHttp.get(path)
             .toDownloadFlow("${cacheDir}/app-$flavor-release.apk")
             .onProgress {
+                progressBar.progress = it.progress
                 Log.i("张飞", "进度:${it.progress}")
+            }
+            .onStart {
+                progressDialog = showProgressDialog(this@MainActivity)
+            }
+            .onCompletion {
+                progressDialog.dismiss()
             }
             .catch {
                 Log.i("张飞", "异常:$it")
@@ -120,7 +135,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun firebaseButtonClicked() {
-
+//        lifecycleScope.launch {
+//            download()
+//        }
 
         FirebaseInAppMessaging.getInstance()
             .addClickListener { inAppMessage: InAppMessage, action: Action ->
@@ -458,6 +475,21 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+    @SuppressLint("MissingInflatedId")
+    fun showProgressDialog(context: Context): AlertDialog {
+        val builder = AlertDialog.Builder(context)
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.dialog_progress, null)
+         progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+
+        builder.setView(view)
+        builder.setCancelable(false) // 禁止点击外部或返回键取消弹窗
+
+        val dialog = builder.create()
+        dialog.show()
+
+        return dialog
     }
 
 }
