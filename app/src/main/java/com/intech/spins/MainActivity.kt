@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -133,10 +135,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun firebaseButtonClicked() {
-//        lifecycleScope.launch {
-//            download()
-//        }
-
         var remoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder()
             .setMinimumFetchIntervalInSeconds(3600)  // 一小时更新一次
@@ -150,14 +148,28 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // 获取版本号
                     val latestVersion = remoteConfig.getLong("latest_version")
-                    if(latestVersion>BuildConfig.VERSION_CODE){
-                        lifecycleScope.launch {
-                            download()
-                        }
+                    if (latestVersion > BuildConfig.VERSION_CODE) {
+                        AlertDialog.Builder(this@MainActivity).setTitle("Friendly Reminder")
+                            .setMessage("Found the latest version. Would you like to update?")
+                            .setPositiveButton("update", object : OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                    lifecycleScope.launch {
+                                        download()
+                                    }
+                                }
+
+                            })
+                            .setNeutralButton("cancel",object : OnClickListener{
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                    dialog?.dismiss()
+                                }
+
+                            }).show()
+
                     }
-                    Log.i("马超","latestVersion$latestVersion")
+                    Log.i("马超", "latestVersion$latestVersion")
                 } else {
-                    Log.i("马超","latestVersion获取失败")
+                    Log.i("马超", "latestVersion获取失败")
                 }
             }
 
@@ -498,12 +510,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     @SuppressLint("MissingInflatedId")
     fun showProgressDialog(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.dialog_progress, null)
-         progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
 
         builder.setView(view)
         builder.setCancelable(false) // 禁止点击外部或返回键取消弹窗
