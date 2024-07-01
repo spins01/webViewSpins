@@ -1,7 +1,6 @@
 package com.intech.spins
 
 import android.Manifest
-import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -27,20 +26,28 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging
+import com.google.firebase.inappmessaging.model.Action
+import com.google.firebase.inappmessaging.model.InAppMessage
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.gyf.immersionbar.ImmersionBar
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import rxhttp.toDownloadFlow
+import rxhttp.wrapper.param.RxHttp
 import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var webView: WebView
     private lateinit var ivStartUp: RelativeLayout
     private lateinit var fullScreen: FrameLayout
@@ -57,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
     private val FILE_CHOOSER_RESULT_CODE = 1
     private val PERMISSION_REQUEST_CODE = 100
+    private var mApkPath: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -89,44 +97,43 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        firebaseButtonClicked()
     }
 
-    // Declare the launcher at the top of your Activity/Fragment:
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-
-        } else {
-
-        }
-    }
-
-    private fun askNotificationPermission() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.POST_NOTIFICATIONS
-                ) ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-
-            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-                Toast.makeText(
-                    this,
-                    "You have disabled the POST_NOTIFICATIONS permission, so you will not receive notifications from the app. If needed, you can enable it manually.",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-
-                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+    private suspend fun download() {
+        val flavor = BuildConfig.FLAVOR
+        val path = "https://spinscasino.games/downloadApk/$flavor/app-$flavor-release.apk"
+        Log.i("张飞", "path:${path}")
+        RxHttp.get(path)
+            .toDownloadFlow("${cacheDir}/app-$flavor-release.apk")
+            .onProgress {
+                Log.i("张飞", "进度:${it.progress}")
             }
-        }
+            .catch {
+                Log.i("张飞", "异常:$it")
+            }
+            .collect {
+                Log.i("张飞", "路径:$it")
+                mApkPath = it
+                InstallApkUtils.installAPK(this@MainActivity, it)
+            }
+    }
+
+    private fun firebaseButtonClicked() {
+
+
+        FirebaseInAppMessaging.getInstance()
+            .addClickListener { inAppMessage: InAppMessage, action: Action ->
+                val actionType = action.actionUrl
+                if (actionType == "https://spins.com/download") {
+                    lifecycleScope.launch {
+                        download()
+                    }
+                }
+            }
     }
 
     private fun firebasePush() {
-//        askNotificationPermission()
         val sharedPreferences = getSharedPreferences("Spins", Context.MODE_PRIVATE)
         val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
         //初始化Firebase Analytics
@@ -363,6 +370,8 @@ class MainActivity : AppCompatActivity() {
                 mFilePathCallback?.onReceiveValue(results)
                 mFilePathCallback = null
             }
+        } else if (requestCode == 123456) {
+            InstallApkUtils.install(this@MainActivity, mApkPath)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -375,7 +384,8 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.POST_NOTIFICATIONS,
             Manifest.permission.READ_MEDIA_IMAGES,
             Manifest.permission.READ_MEDIA_AUDIO,
-            Manifest.permission.READ_MEDIA_VIDEO,
+            Manifest.permission.READ_MEDIA_VIDEO
+//            Manifest.permission.REQUEST_INSTALL_PACKAGES
         )
 
         val permissionsToRequest = permissions.filter {
@@ -388,6 +398,10 @@ class MainActivity : AppCompatActivity() {
                 permissionsToRequest.toTypedArray(),
                 PERMISSION_REQUEST_CODE
             )
+//        }else{
+//            lifecycleScope.launch {
+//                firebaseButtonClicked()
+//            }
         }
     }
 
@@ -435,13 +449,15 @@ class MainActivity : AppCompatActivity() {
                 "You have disabled the READ_MEDIA_AUDIO permission,You won't be able to access the audios on your phone.",
                 Toast.LENGTH_LONG
             ).show()
+
+            Manifest.permission.REQUEST_INSTALL_PACKAGES -> {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "You have disabled the REQUEST_INSTALL_PACKAGES permission,You won't be able to install the latest apk",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
-//    Manifest.permission.POST_NOTIFICATIONS,
-//    Manifest.permission.READ_MEDIA_IMAGES,
-//    Manifest.permission.READ_MEDIA_AUDIO,
-//    Manifest.permission.READ_MEDIA_VIDEO,
-//    private fun handleToast(result: Int) {
 
-//    }
 }

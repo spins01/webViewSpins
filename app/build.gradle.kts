@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "1.9.0-1.0.13"
 }
 
 android {
@@ -196,5 +197,12 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-messaging:23.0.0")
     implementation ("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-inappmessaging-display:20.1.1")
+
+
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ("com.github.liujingxing.rxhttp:rxhttp:3.2.7")
+    ksp ("com.github.liujingxing.rxhttp:rxhttp-compiler:3.2.7")
+//    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
 
 }
