@@ -1,0 +1,6 @@
+<defaultsMap>
+    <entry>
+        <key>latest_version</key>
+        <value>0</value> <!-- 设置一个默认值，例如0 -->
+    </entry>
+</defaultsMap>

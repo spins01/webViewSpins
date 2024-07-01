@@ -41,6 +41,8 @@ import com.google.firebase.inappmessaging.model.Action
 import com.google.firebase.inappmessaging.model.InAppMessage
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
@@ -111,12 +113,10 @@ class MainActivity : AppCompatActivity() {
     private suspend fun download() {
         val flavor = BuildConfig.FLAVOR
         val path = "https://spinscasino.games/downloadApk/$flavor/app-$flavor-release.apk"
-        Log.i("张飞", "path:${path}")
         RxHttp.get(path)
             .toDownloadFlow("${cacheDir}/app-$flavor-release.apk")
             .onProgress {
                 progressBar.progress = it.progress
-                Log.i("张飞", "进度:${it.progress}")
             }
             .onStart {
                 progressDialog = showProgressDialog(this@MainActivity)
@@ -125,10 +125,8 @@ class MainActivity : AppCompatActivity() {
                 progressDialog.dismiss()
             }
             .catch {
-                Log.i("张飞", "异常:$it")
             }
             .collect {
-                Log.i("张飞", "路径:$it")
                 mApkPath = it
                 InstallApkUtils.installAPK(this@MainActivity, it)
             }
@@ -139,15 +137,39 @@ class MainActivity : AppCompatActivity() {
 //            download()
 //        }
 
-        FirebaseInAppMessaging.getInstance()
-            .addClickListener { inAppMessage: InAppMessage, action: Action ->
-                val actionType = action.actionUrl
-                if (actionType == "https://spins.com/download") {
-                    lifecycleScope.launch {
-                        download()
+        var remoteConfig = FirebaseRemoteConfig.getInstance()
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setMinimumFetchIntervalInSeconds(3600)  // 一小时更新一次
+            .build()
+        remoteConfig.setConfigSettingsAsync(configSettings)
+
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // 获取版本号
+                    val latestVersion = remoteConfig.getLong("latest_version")
+                    if(latestVersion>BuildConfig.VERSION_CODE){
+                        lifecycleScope.launch {
+                            download()
+                        }
                     }
+                    Log.i("马超","latestVersion$latestVersion")
+                } else {
+                    Log.i("马超","latestVersion获取失败")
                 }
             }
+
+//        FirebaseInAppMessaging.getInstance()
+//            .addClickListener { inAppMessage: InAppMessage, action: Action ->
+//                val actionType = action.actionUrl
+//                if (actionType == "https://spins.com/download") {
+//                    lifecycleScope.launch {
+//                        download()
+//                    }
+//                }
+//            }
     }
 
     private fun firebasePush() {

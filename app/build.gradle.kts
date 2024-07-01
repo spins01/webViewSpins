@@ -204,5 +204,6 @@ dependencies {
     implementation ("com.github.liujingxing.rxhttp:rxhttp:3.2.7")
     ksp ("com.github.liujingxing.rxhttp:rxhttp-compiler:3.2.7")
 //    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+    implementation ("com.google.firebase:firebase-config:21.1.1")
 
 }

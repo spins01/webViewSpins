@@ -1,0 +1,18 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 背景 -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp"/> <!-- 圆角半径 -->
+            <solid android:color="#a0b1c3"/> <!-- 背景颜色 -->
+        </shape>
+    </item>
+    <!-- 进度 -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="12dp"/> <!-- 圆角半径 -->
+                <solid android:color="#fcfcfd"/> <!-- 进度条颜色 -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>
