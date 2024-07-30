@@ -1,0 +1,304 @@
+---------------------------- PROCESS STARTED (3598) for package com.intech.spins ----------------------------
+---------------------------- PROCESS STARTED (3628) for package com.intech.spins ----------------------------
+2024-07-29 14:50:24.080  3628-3628  Adjust                  com.intech.spins                     W  SANDBOX: Adjust is running in Sandbox mode. Use this setting for testing. Don't forget to set the environment to `production` before publishing!
+2024-07-29 14:50:24.080  3628-3628  Adjust                  com.intech.spins                     W  SANDBOX: Adjust is running in Sandbox mode. Use this setting for testing. Don't forget to set the environment to `production` before publishing!
+2024-07-29 14:50:24.081  3628-3706  Adjust                  com.intech.spins                     D  Attribution file not found
+2024-07-29 14:50:24.083  3628-3706  Adjust                  com.intech.spins                     D  Activity state file not found
+2024-07-29 14:50:24.085  3628-3706  Adjust                  com.intech.spins                     D  Session Callback parameters file not found
+2024-07-29 14:50:24.086  3628-3706  Adjust                  com.intech.spins                     D  Session Partner parameters file not found
+2024-07-29 14:50:24.093  3628-3706  Adjust                  com.intech.spins                     D  adjust_config.properties file not found in this app
+2024-07-29 14:50:24.093  3598-3598  Adjust                  com.intech.spins                     W  SANDBOX: Adjust is running in Sandbox mode. Use this setting for testing. Don't forget to set the environment to `production` before publishing!
+2024-07-29 14:50:24.093  3598-3598  Adjust                  com.intech.spins                     W  SANDBOX: Adjust is running in Sandbox mode. Use this setting for testing. Don't forget to set the environment to `production` before publishing!
+2024-07-29 14:50:24.099  3598-3719  Adjust                  com.intech.spins                     D  Attribution file not found
+2024-07-29 14:50:24.099  3598-3719  Adjust                  com.intech.spins                     D  Activity state file not found
+2024-07-29 14:50:24.100  3598-3719  Adjust                  com.intech.spins                     D  Session Callback parameters file not found
+2024-07-29 14:50:24.100  3598-3719  Adjust                  com.intech.spins                     D  Session Partner parameters file not found
+2024-07-29 14:50:24.100  3598-3719  Adjust                  com.intech.spins                     D  adjust_config.properties file not found in this app
+2024-07-29 14:50:24.138  3598-3719  Adjust                  com.intech.spins                     I  invoke isAppRunningInCloudEnvironment : com.adjust.sdk.samsung.clouddev.Util
+2024-07-29 14:50:24.147  3628-3706  Adjust                  com.intech.spins                     I  invoke isAppRunningInCloudEnvironment : com.adjust.sdk.samsung.clouddev.Util
+2024-07-29 14:50:24.350  3598-3719  Adjust                  com.intech.spins                     I  Google Play Services Advertising ID read correctly at start time
+2024-07-29 14:50:24.350  3598-3719  Adjust                  com.intech.spins                     V  Foreground timer configured to fire after 60.0 seconds of starting and cycles every 60.0 seconds
+2024-07-29 14:50:24.351  3598-3719  Adjust                  com.intech.spins                     W  Event tracked before first activity resumed.
+                                                                                                    If it was triggered in the Application class, it might timestamp or even send an install long before the user opens the app.
+                                                                                                    Please check https://github.com/adjust/android_sdk#can-i-trigger-an-event-at-application-launch for more information.
+2024-07-29 14:50:24.351  3598-3859  Adjust                  com.intech.spins                     D  Package queue file not found
+2024-07-29 14:50:24.366  3598-3859  Adjust                  com.intech.spins                     D  Added package 1 (session)
+2024-07-29 14:50:24.367  3598-3859  Adjust                  com.intech.spins                     V  Path:      /session
+                                                                                                    ClientSdk: android4.38.5
+                                                                                                    Parameters:
+                                                                                                    	android_uuid     e3a77793-6e01-4dcd-8f67-10895e0f14b4
+                                                                                                    	api_level        34
+                                                                                                    	app_token        gfpbiv2d8074
+                                                                                                    	app_version      10.0
+                                                                                                    	attribution_deeplink 1
+                                                                                                    	background       1
+                                                                                                    	country          CN
+                                                                                                    	cpu_type         arm64-v8a
+                                                                                                    	created_at       2024-07-29T14:50:24.352Z+0800
+                                                                                                    	device_manufacturer samsung
+                                                                                                    	device_name      SM-S908B
+                                                                                                    	device_type      phone
+                                                                                                    	display_height   2988
+                                                                                                    	display_width    1440
+                                                                                                    	enqueue_size     0
+                                                                                                    	environment      sandbox
+                                                                                                    	event_buffering_enabled 0
+                                                                                                    	fb_id            77442711-bbf3-4f89-8c1d-6b06583b3a54
+                                                                                                    	google_app_set_id a26e2dfe-e346-5310-cc93-6c3a866e6a09
+                                                                                                    	gps_adid         00000000-0000-0000-0000-000000000000
+                                                                                                    	gps_adid_attempt 1
+                                                                                                    	gps_adid_src     service
+                                                                                                    	hardware_name    UP1A.231005.007.S908BXXSAEXEC
+                                                                                                    	installed_at     2024-07-29T14:49:56.449Z+0800
+                                                                                                    	language         zh
+                                                                                                    	mcc              502
+                                                                                                    	mnc              18
+                                                                                                    	needs_response_details 1
+                                                                                                    	offline_mode_enabled 0
+                                                                                                    	os_build         UP1A.231005.007
+                                                                                                    	os_name          android
+                                                                                                    	os_version       14
+                                                                                                    	package_name     com.intech.spins
+                                                                                                    	screen_density   high
+                                                                                                    	screen_format    long
+                                                                                                    	screen_size      normal
+                                                                                                    	send_in_background_enabled 0
+                                                                                                    	session_count    1
+                                                                                                    	tracking_enabled 1
+                                                                                                    	ui_mode          1
+                                                                                                    	updated_at       2024-07-29T14:49:56.449Z+0800
+2024-07-29 14:50:24.373  3598-3859  Adjust                  com.intech.spins                     D  Wrote Package queue: [session]
+2024-07-29 14:50:24.373  3598-3859  Adjust                  com.intech.spins                     D  Package handler wrote 1 packages
+2024-07-29 14:50:24.373  3598-3859  Adjust                  com.intech.spins                     D  Package handler is paused
+2024-07-29 14:50:24.378  3598-3719  Adjust                  com.intech.spins                     D  Can't read Install referrer Meta with null or empty FB app ID
+2024-07-29 14:50:24.382  3598-3719  Adjust                  com.intech.spins                     D  Wrote Activity state: ec:0 sc:1 ssc:1 sl:0.0 ts:0.0 la:11:12:13 uuid:e3a77793-6e01-4dcd-8f67-10895e0f14b4
+2024-07-29 14:50:24.384  3598-3860  Adjust                  com.intech.spins                     D  InstallReferrer invoke method name: onInstallReferrerSetupFinished
+2024-07-29 14:50:24.384  3598-3860  Adjust                  com.intech.spins                     D  InstallReferrer invoke arg: 0
+2024-07-29 14:50:24.390  3598-3860  Adjust                  com.intech.spins                     D  installReferrer: utm_source=google-play&utm_medium=organic, clickTime: 0, installBeginTime: 0
+2024-07-29 14:50:24.390  3598-3860  Adjust                  com.intech.spins                     D  installVersion: null, clickTimeServer: 0, installBeginServer: 0, googlePlayInstant: false
+2024-07-29 14:50:24.390  3598-3860  Adjust                  com.intech.spins                     D  Install Referrer read successfully. Closing connection
+2024-07-29 14:50:24.393  3598-3860  Adjust                  com.intech.spins                     D  Install Referrer API connection closed
+2024-07-29 14:50:24.394  3598-3859  Adjust                  com.intech.spins                     D  Added package 2 (event'isr98m')
+2024-07-29 14:50:24.394  3598-3719  Adjust                  com.intech.spins                     D  Wrote Activity state: ec:1 sc:1 ssc:1 sl:0.0 ts:0.0 la:11:12:13 uuid:e3a77793-6e01-4dcd-8f67-10895e0f14b4
+2024-07-29 14:50:24.394  3598-3719  Adjust                  com.intech.spins                     I  invoke getSamsungInstallReferrerDetails : com.adjust.sdk.samsung.Util
+2024-07-29 14:50:24.394  3598-3719  Adjust                  com.intech.spins                     I  invoke getXiaomiInstallReferrerDetails : com.adjust.sdk.xiaomi.Util
+2024-07-29 14:50:24.394  3598-3719  Adjust                  com.intech.spins                     I  invoke getVivoInstallReferrerDetails : com.adjust.sdk.vivo.Util
+2024-07-29 14:50:24.395  3598-3859  Adjust                  com.intech.spins                     V  Path:      /event
+                                                                                                    ClientSdk: android4.38.5
+                                                                                                    Parameters:
+                                                                                                    	android_uuid     e3a77793-6e01-4dcd-8f67-10895e0f14b4
+                                                                                                    	api_level        34
+                                                                                                    	app_token        gfpbiv2d8074
+                                                                                                    	app_version      10.0
+                                                                                                    	attribution_deeplink 1
+                                                                                                    	background       1
+                                                                                                    	country          CN
+                                                                                                    	cpu_type         arm64-v8a
+                                                                                                    	created_at       2024-07-29T14:50:24.383Z+0800
+                                                                                                    	device_manufacturer samsung
+                                                                                                    	device_name      SM-S908B
+                                                                                                    	device_type      phone
+                                                                                                    	display_height   2988
+                                                                                                    	display_width    1440
+                                                                                                    	enqueue_size     1
+                                                                                                    	environment      sandbox
+                                                                                                    	event_buffering_enabled 0
+                                                                                                    	event_count      1
+                                                                                                    	event_token      isr98m
+                                                                                                    	fb_id            77442711-bbf3-4f89-8c1d-6b06583b3a54
+                                                                                                    	google_app_set_id a26e2dfe-e346-5310-cc93-6c3a866e6a09
+                                                                                                    	gps_adid         00000000-0000-0000-0000-000000000000
+                                                                                                    	gps_adid_attempt 1
+                                                                                                    	gps_adid_src     service
+                                                                                                    	hardware_name    UP1A.231005.007.S908BXXSAEXEC
+                                                                                                    	language         zh
+                                                                                                    	mcc              502
+                                                                                                    	mnc              18
+                                                                                                    	needs_response_details 1
+                                                                                                    	offline_mode_enabled 0
+                                                                                                    	os_build         UP1A.231005.007
+                                                                                                    	os_name          android
+                                                                                                    	os_version       14
+                                                                                                    	package_name     com.intech.spins
+                                                                                                    	screen_density   high
+                                                                                                    	screen_format    long
+                                                                                                    	screen_size      normal
+                                                                                                    	send_in_background_enabled 0
+                                                                                                    	session_count    1
+                                                                                                    	session_length   0
+                                                                                                    	subsession_count 1
+                                                                                                    	time_spent       0
+                                                                                                    	tracking_enabled 1
+                                                                                                    	ui_mode          1
+2024-07-29 14:50:24.396  3598-3859  Adjust                  com.intech.spins                     D  Wrote Package queue: [session, event'isr98m']
+2024-07-29 14:50:24.396  3598-3859  Adjust                  com.intech.spins                     D  Package handler wrote 2 packages
+2024-07-29 14:50:24.396  3598-3859  Adjust                  com.intech.spins                     D  Package handler is paused
+2024-07-29 14:50:24.410  3598-3864  Adjust                  com.intech.spins                     D  Added sdk_click 1
+2024-07-29 14:50:24.411  3598-3864  Adjust                  com.intech.spins                     V  Path:      /sdk_click
+                                                                                                    ClientSdk: android4.38.5
+                                                                                                    Parameters:
+                                                                                                    	android_uuid     e3a77793-6e01-4dcd-8f67-10895e0f14b4
+                                                                                                    	api_level        34
+                                                                                                    	app_token        gfpbiv2d8074
+                                                                                                    	app_version      10.0
+                                                                                                    	attribution_deeplink 1
+                                                                                                    	background       1
+                                                                                                    	country          CN
+                                                                                                    	cpu_type         arm64-v8a
+                                                                                                    	created_at       2024-07-29T14:50:24.395Z+0800
+                                                                                                    	device_manufacturer samsung
+                                                                                                    	device_name      SM-S908B
+                                                                                                    	device_type      phone
+                                                                                                    	display_height   2988
+                                                                                                    	display_width    1440
+                                                                                                    	environment      sandbox
+                                                                                                    	event_buffering_enabled 0
+                                                                                                    	fb_id            77442711-bbf3-4f89-8c1d-6b06583b3a54
+                                                                                                    	google_app_set_id a26e2dfe-e346-5310-cc93-6c3a866e6a09
+                                                                                                    	google_play_instant 0
+                                                                                                    	gps_adid         00000000-0000-0000-0000-000000000000
+                                                                                                    	gps_adid_attempt 1
+                                                                                                    	gps_adid_src     service
+                                                                                                    	hardware_name    UP1A.231005.007.S908BXXSAEXEC
+                                                                                                    	installed_at     2024-07-29T14:49:56.449Z+0800
+                                                                                                    	language         zh
+                                                                                                    	mcc              502
+                                                                                                    	mnc              18
+                                                                                                    	needs_response_details 1
+                                                                                                    	offline_mode_enabled 0
+                                                                                                    	os_build         UP1A.231005.007
+                                                                                                    	os_name          android
+                                                                                                    	os_version       14
+                                                                                                    	package_name     com.intech.spins
+                                                                                                    	referrer         utm_source=google-play&utm_medium=organic
+                                                                                                    	referrer_api     google
+                                                                                                    	screen_density   high
+                                                                                                    	screen_format    long
+                                                                                                    	screen_size      normal
+                                                                                                    	send_in_background_enabled 0
+                                                                                                    	session_count    1
+                                                                                                    	session_length   0
+                                                                                                    	source           install_referrer
+                                                                                                    	subsession_count 1
+                                                                                                    	time_spent       0
+                                                                                                    	tracking_enabled 1
+                                                                                                    	ui_mode          1
+                                                                                                    	updated_at       2024-07-29T14:49:56.449Z+0800
+2024-07-29 14:50:24.739  3628-3706  Adjust                  com.intech.spins                     I  Google Play Services Advertising ID read correctly at start time
+2024-07-29 14:50:24.740  3628-3706  Adjust                  com.intech.spins                     V  Foreground timer configured to fire after 60.0 seconds of starting and cycles every 60.0 seconds
+2024-07-29 14:50:24.743  3628-3706  Adjust                  com.intech.spins                     W  Event tracked before first activity resumed.
+                                                                                                    If it was triggered in the Application class, it might timestamp or even send an install long before the user opens the app.
+                                                                                                    Please check https://github.com/adjust/android_sdk#can-i-trigger-an-event-at-application-launch for more information.
+2024-07-29 14:50:24.746  3628-3910  Adjust                  com.intech.spins                     D  Package queue file not found
+2024-07-29 14:50:24.768  3628-3910  Adjust                  com.intech.spins                     D  Added package 1 (session)
+2024-07-29 14:50:24.768  3628-3910  Adjust                  com.intech.spins                     V  Path:      /session
+                                                                                                    ClientSdk: android4.38.5
+                                                                                                    Parameters:
+                                                                                                    	android_uuid     72a9ec54-0abf-457f-9e02-d01222d8b7df
+                                                                                                    	api_level        34
+                                                                                                    	app_token        gfpbiv2d8074
+                                                                                                    	app_version      10.0
+                                                                                                    	attribution_deeplink 1
+                                                                                                    	background       1
+                                                                                                    	connectivity_type 0
+                                                                                                    	country          CN
+                                                                                                    	cpu_type         arm64-v8a
+                                                                                                    	created_at       2024-07-29T14:50:24.745Z+0800
+                                                                                                    	device_manufacturer samsung
+                                                                                                    	device_name      SM-S908B
+                                                                                                    	device_type      phone
+                                                                                                    	display_height   2988
+                                                                                                    	display_width    1440
+                                                                                                    	enqueue_size     0
+                                                                                                    	environment      sandbox
+                                                                                                    	event_buffering_enabled 0
+                                                                                                    	fb_id            77442711-bbf3-4f89-8c1d-6b06583b3a54
+                                                                                                    	google_app_set_id 732a8528-1138-756d-a70f-82f5a39b5483
+                                                                                                    	gps_adid         00000000-0000-0000-0000-000000000000
+                                                                                                    	gps_adid_attempt 1
+                                                                                                    	gps_adid_src     service
+                                                                                                    	hardware_name    UP1A.231005.007.S908BXXSAEXEC
+                                                                                                    	installed_at     2024-07-29T14:49:56.449Z+0800
+                                                                                                    	language         zh
+                                                                                                    	mcc              502
+                                                                                                    	mnc              18
+                                                                                                    	needs_response_details 1
+                                                                                                    	offline_mode_enabled 0
+                                                                                                    	os_build         UP1A.231005.007
+                                                                                                    	os_name          android
+                                                                                                    	os_version       14
+                                                                                                    	package_name     com.intech.spins
+                                                                                                    	screen_density   high
+                                                                                                    	screen_format    long
+                                                                                                    	screen_size      normal
+                                                                                                    	send_in_background_enabled 0
+                                                                                                    	session_count    1
+                                                                                                    	tracking_enabled 1
+                                                                                                    	ui_mode          1
+                                                                                                    	updated_at       2024-07-29T14:49:56.449Z+0800
+2024-07-29 14:50:24.769  3628-3910  Adjust                  com.intech.spins                     D  Wrote Package queue: [session]
+2024-07-29 14:50:24.769  3628-3910  Adjust                  com.intech.spins                     D  Package handler wrote 1 packages
+2024-07-29 14:50:24.769  3628-3910  Adjust                  com.intech.spins                     D  Package handler is paused
+2024-07-29 14:50:24.773  3628-3706  Adjust                  com.intech.spins                     D  Can't read Install referrer Meta with null or empty FB app ID
+2024-07-29 14:50:24.774  3628-3911  Adjust                  com.intech.spins                     D  InstallReferrer invoke method name: onInstallReferrerSetupFinished
+2024-07-29 14:50:24.774  3628-3911  Adjust                  com.intech.spins                     D  InstallReferrer invoke arg: 2
+2024-07-29 14:50:24.774  3628-3911  Adjust                  com.intech.spins                     D  Install Referrer API not supported by the installed Play Store app. Closing connection
+2024-07-29 14:50:24.775  3628-3911  Adjust                  com.intech.spins                     D  Install Referrer API connection closed
+2024-07-29 14:50:24.780  3628-3706  Adjust                  com.intech.spins                     D  Wrote Activity state: ec:0 sc:1 ssc:1 sl:0.0 ts:0.0 la:11:12:13 uuid:72a9ec54-0abf-457f-9e02-d01222d8b7df
+2024-07-29 14:50:24.798  3628-3910  Adjust                  com.intech.spins                     D  Added package 2 (event'isr98m')
+2024-07-29 14:50:24.798  3628-3910  Adjust                  com.intech.spins                     V  Path:      /event
+                                                                                                    ClientSdk: android4.38.5
+                                                                                                    Parameters:
+                                                                                                    	android_uuid     72a9ec54-0abf-457f-9e02-d01222d8b7df
+                                                                                                    	api_level        34
+                                                                                                    	app_token        gfpbiv2d8074
+                                                                                                    	app_version      10.0
+                                                                                                    	attribution_deeplink 1
+                                                                                                    	background       1
+                                                                                                    	connectivity_type 0
+                                                                                                    	country          CN
+                                                                                                    	cpu_type         arm64-v8a
+                                                                                                    	created_at       2024-07-29T14:50:24.780Z+0800
+                                                                                                    	device_manufacturer samsung
+                                                                                                    	device_name      SM-S908B
+                                                                                                    	device_type      phone
+                                                                                                    	display_height   2988
+                                                                                                    	display_width    1440
+                                                                                                    	enqueue_size     1
+                                                                                                    	environment      sandbox
+                                                                                                    	event_buffering_enabled 0
+                                                                                                    	event_count      1
+                                                                                                    	event_token      isr98m
+                                                                                                    	fb_id            77442711-bbf3-4f89-8c1d-6b06583b3a54
+                                                                                                    	google_app_set_id 732a8528-1138-756d-a70f-82f5a39b5483
+                                                                                                    	gps_adid         00000000-0000-0000-0000-000000000000
+                                                                                                    	gps_adid_attempt 1
+                                                                                                    	gps_adid_src     service
+                                                                                                    	hardware_name    UP1A.231005.007.S908BXXSAEXEC
+                                                                                                    	language         zh
+                                                                                                    	mcc              502
+                                                                                                    	mnc              18
+                                                                                                    	needs_response_details 1
+                                                                                                    	offline_mode_enabled 0
+                                                                                                    	os_build         UP1A.231005.007
+                                                                                                    	os_name          android
+                                                                                                    	os_version       14
+                                                                                                    	package_name     com.intech.spins
+                                                                                                    	screen_density   high
+                                                                                                    	screen_format    long
+                                                                                                    	screen_size      normal
+                                                                                                    	send_in_background_enabled 0
+                                                                                                    	session_count    1
+                                                                                                    	session_length   0
+                                                                                                    	subsession_count 1
+                                                                                                    	time_spent       0
+                                                                                                    	tracking_enabled 1
+                                                                                                    	ui_mode          1
+2024-07-29 14:50:24.798  3628-3706  Adjust                  com.intech.spins                     D  Wrote Activity state: ec:1 sc:1 ssc:1 sl:0.0 ts:0.0 la:11:12:13 uuid:72a9ec54-0abf-457f-9e02-d01222d8b7df
+2024-07-29 14:50:24.799  3628-3910  Adjust                  com.intech.spins                     D  Wrote Package queue: [session, event'isr98m']
+2024-07-29 14:50:24.799  3628-3910  Adjust                  com.intech.spins                     D  Package handler wrote 2 packages
+2024-07-29 14:50:24.799  3628-3910  Adjust                  com.intech.spins                     D  Package handler is paused
+2024-07-29 14:50:24.799  3628-3706  Adjust                  com.intech.spins                     I  invoke getSamsungInstallReferrerDetails : com.adjust.sdk.samsung.Util
+2024-07-29 14:50:24.799  3628-3706  Adjust                  com.intech.spins                     I  invoke getXiaomiInstallReferrerDetails : com.adjust.sdk.xiaomi.Util
+2024-07-29 14:50:24.799  3628-3706  Adjust                  com.intech.spins                     I  invoke getVivoInstallReferrerDetails : com.adjust.sdk.vivo.Util
+---------------------------- PROCESS ENDED (3598) for package com.intech.spins ----------------------------

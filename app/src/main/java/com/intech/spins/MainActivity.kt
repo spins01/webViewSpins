@@ -13,10 +13,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.webkit.JavascriptInterface
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -24,6 +26,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
@@ -35,11 +38,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
 import androidx.lifecycle.lifecycleScope
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustConfig
+import com.adjust.sdk.AdjustEvent
+import com.adjust.sdk.webbridge.AdjustBridge
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import com.google.firebase.inappmessaging.model.Action
+import com.google.firebase.inappmessaging.model.Button
 import com.google.firebase.inappmessaging.model.InAppMessage
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -77,9 +86,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressDialog: AlertDialog
     private lateinit var progressBar: ProgressBar
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         DensityUtils.setDensity(application, this@MainActivity)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
@@ -110,6 +121,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         firebaseButtonClicked()
+        Adjust.onPause()
+      /*  var connect = findViewById<android.widget.Button>(R.id.btConnect)
+        var userId = findViewById<EditText>(R.id.etUserID)
+        var roomId = findViewById<EditText>(R.id.etRoomID)*/
+    /*    connect.setOnClickListener{
+            webView.evaluateJavascript("javascript:name(${userId.text},${roomId.text})",null)
+        }*/
     }
 
     private suspend fun download() {
@@ -253,6 +271,7 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
                 fullScreen.visibility = View.VISIBLE
+                fullScreen.removeAllViews()
                 webView.visibility = View.GONE
                 fullScreen.addView(
                     view, FrameLayout.LayoutParams(
@@ -362,6 +381,7 @@ class MainActivity : AppCompatActivity() {
 //                return super.shouldOverrideUrlLoading(view, request)
 //            }
         }
+        AdjustBridge.registerAndGetInstance(application, webView)
         webView.loadUrl(spinsUrl)
     }
 
@@ -374,6 +394,7 @@ class MainActivity : AppCompatActivity() {
             removeAllViews()
             destroy()
         }
+        AdjustBridge.unregister()
     }
 
     @Suppress("DEPRECATION")
@@ -527,4 +548,8 @@ class MainActivity : AppCompatActivity() {
         return dialog
     }
 
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
 }

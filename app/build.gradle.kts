@@ -29,6 +29,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
@@ -148,6 +149,40 @@ android {
             dimension = "version"
             buildConfigField("String", "DOMAIN", "\"https://spinsph.com/?invite=spinsphcom\"")
         }
+        create("spinsabbcom") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsabb.com/?invite=spinsabbcom\"")
+        }
+        create("spinsxxxnet") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsxxx.net/?invite=spinsxxxnet\"")
+        }
+        create("spinstwonet") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinstwo.net/?invite=spinstwonet\"")
+        }
+        create("spinsusenet") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsuse.net/?invite=spinsusenet\"")
+        }
+
+
+//        spinshat.com
+//        spinsink.com
+//        spinsinn.com
+        create("spinshatcom") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinshat.com/?invite=spinshatcom\"")
+        }
+        create("spinsinkcom") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsink.com/?invite=spinsinkcom\"")
+        }
+        create("spinsinncom") {
+            dimension = "version"
+            buildConfigField("String", "DOMAIN", "\"https://spinsinn.com/?invite=spinsinncom\"")
+        }
+
     }
     flavorDimensions("version")
     compileOptions {
@@ -205,5 +240,16 @@ dependencies {
     ksp ("com.github.liujingxing.rxhttp:rxhttp-compiler:3.2.7")
 //    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
     implementation ("com.google.firebase:firebase-config:21.1.1")
+
+    // djust sdk
+    implementation ("com.adjust.sdk:adjust-android:4.38.5")
+    implementation ("com.android.installreferrer:installreferrer:2.2")
+    // Add the following if you're using the Adjust SDK inside web views on your app
+    implementation ("com.adjust.sdk:adjust-android-webbridge:4.38.5")
+
+    implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation ("com.google.android.gms:play-services-appset:16.0.2")
+
+    implementation("com.android.installreferrer:installreferrer:2.2")
 
 }
